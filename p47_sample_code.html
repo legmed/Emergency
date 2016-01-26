@@ -10,13 +10,13 @@
 function initialize(){
   var mapDiv = document.getElementById("map_canvas");
   var mapCanvas = new google.maps.Map(mapDiv, {
-    center : new google.maps.LatLng(0.1, 0.1),
+    center : new google.maps.LatLng(36.560348, 136.673099),
     zoom : 10,
     mapTypeId : google.maps.MapTypeId.ROADMAP
   });
 
 var marker = createMarker({
-  Position : new google.maps.LatLng(0, 0),
+  Position : new google.maps.LatLng(36.560348, 136.673099),
   map : mapCanvas
 });
 
