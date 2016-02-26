@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <script type="text/javascript">
+  var mapCanvas, marker, geocoder, infoWnd;
+  function initialize() {
+    var initPos = new google.maps.LatLng(0, 0);
+    mapCanvas = new google.maps.Map(document.getElementById("map_canvas"),{
+      center : initPos,
+      zoom : 3
+      mapTypeId : google.maps.MapTypeId.ROADMAP
+    });
+
+    geocoder = new google.maps.Geocoder();
+    infoWnd = new google.maps.InfoWindow();
+    marker = createMarker({
+      map : mapCanvas
+      draggable : true
+    });
+    google.maps.event.addListener(marker, "dragend", doReverseGeocode)
+
+    var geocodeBtn = document.getElementById("doGeocode");
+    google.maps.event.addDomListener(geocodeBtn, "click", doGeocode);
+  }
+
+  function doGeocode(mouseEvt){
+    var request = {
+      address : document. getElementById("address").value
+    };
+    geocoder.geocode(request, function(results, status){
+      callback_geododer(results, status, false);
+    });
+  }
+
+  function doReverseGeocode(mouseEvt){
+    marker.setPosition(mouseEvt.latLng);
+    var request = {
+      location : mouseEvt.latLng
+    };
+    geocoder.geocode(request, function(results, status){
+      callback_geododer(results, status, true);
+    });
+  }
+
+  function callback_geododer(results, status, isReverseGeocode){
+    if (status == google.maps.GeocoderStatus.OK){
+      var result = results[0];
+
+      google.maps.event.addListenerOnce(mapCanvas, "center_changed", function(){
+        marker.setPosition(result.geometry.location);
+        var txt = "latlng:" + result.geometry.location.toUrlValue() +
+        "<br/>" + "address:" +result.formatted_address;
+      infoWnd.setContent(txt);
+    infoWnd.open(mapCanvas, marker);
+  });
+
+  if (isReverseGeocode == true) {
+    mapCanvas.panTo(result.geometry.location);
+  } else {
+    if ("viewport" in result.geometry){
+      mapCanvas.fitBounds(result.geometry.viewport);
+    } else if ("bounds" in result.geometry){
+      mapCanvas.fitBounds(result.geometry.bounds);
+    }
+  }
+} else {
+  alert("code:" + status);
+}
+  }
+
+  function createMarker(opts) {
+    var marker = new google.maps.Marker(opts);
+    return marker;
+  }
+
+  function loadScript(){
+    var query = window.location.search.substring(1);
+    var paramStr = "", address = "";
+    var name, value, paramPair, langRegion;
+    var params = query.split("&");
+
+    for (q in params) {
+      paramPair = params[q].split("=", 2);
+      if (paramPair[0] == "language-code") {
+        langRegion = paramPair[1].split("-");
+        paramStr = "&language=" + langRegion[0] + "&region=" + langRegion[1];
+      }
+    }
+
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src =
+    "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize"
+    + paramStr;
+    document.body.appendChild(script);
+  }
+  window.onload = loadScript;
+  </script>
+  <style type="text/css">
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+  }
+  </style>
+</head>
+<body>
+  <form method="get">
+    address or place name, etc.:
+    <input type="text" id="address" value="Tokyo Tower" />
+    <input type="button" id="doGeocode" value="Geocoding" />
+    <br/>
+
+    region:
+    <select name="language-code" style="margin-left: 20px">
+      <option value="ja-jp">Japan</option>
+      <option value="en-us">United States</option>
+      <option value="ar-iq">Irad</option>
+      <option value="es-es">Spain</option>
+      <option value="ru-ru">Russia</option>
+    </select>
+    <input type="submit" value="Change" />
+  </form>
+  <div id="map_canvas" style="width:100%; height:75%"></div>
+</body>
+</html>
