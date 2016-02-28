@@ -34,14 +34,14 @@
 
     mapCanvas = new google.maps.Map(document.getElementById("map_canvas"),{
       center : initPos,
-      zoom : 3
+      zoom : 3,
       mapTypeId : google.maps.MapTypeId.ROADMAP
     });
 
     geocoder = new google.maps.Geocoder();
     infoWnd = new google.maps.InfoWindow();
     marker = createMarker({
-      map : mapCanvas
+      map : mapCanvas,
       draggable : true
     });
     google.maps.event.addListener(marker, "dragend", doReverseGeocode)
