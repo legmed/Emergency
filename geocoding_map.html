@@ -6,7 +6,7 @@
   <script type="text/javascript">
   var mapCanvas, marker, geocoder, infoWnd;
   function initialize() {
-    var initPos = new google.maps.LatLng(0.2, 0.20000000000004547);
+    var initPos = new google.maps.LatLng(35.658613, 139.745525);
     var mapOptions = {
       center : initPos,
       mapTypeId : google.maps.MapTypeId.ROADMAP,
@@ -19,12 +19,13 @@
       position : initPos,
       text : "マーカーがクリックされた"
     });
-
+}
     function createMarker(options){
       var marker = new google.maps.Marker(options);
 
       var infoWnd = new google.maps.InfoWindow();
       infoWnd.setContent(options.text);
+
        google.maps.event.addListener(marker, "click", function(){
          infoWnd.open(marker.getMap(), marker);
        });
@@ -146,6 +147,7 @@
       <option value="ar-iq">Irad</option>
       <option value="es-es">Spain</option>
       <option value="ru-ru">Russia</option>
+      <option value="in-id">Indonesia</option>
     </select>
     <input type="submit" value="Change" />
   </form>

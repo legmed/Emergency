@@ -9,14 +9,14 @@
     var initPos = new google.maps.LatLng(0.2, 0.20000000000004547);
     mapCanvas = new google.maps.Map(document.getElementById("map_canvas"),{
       center : initPos,
-      zoom : 3
+      zoom : 3,
       mapTypeId : google.maps.MapTypeId.ROADMAP
     });
 
     geocoder = new google.maps.Geocoder();
     infoWnd = new google.maps.InfoWindow();
     marker = createMarker({
-      map : mapCanvas
+      map : mapCanvas,
       draggable : true
     });
     google.maps.event.addListener(marker, "dragend", doReverseGeocode)
@@ -121,6 +121,7 @@
       <option value="ar-iq">Irad</option>
       <option value="es-es">Spain</option>
       <option value="ru-ru">Russia</option>
+      <option value="in-id">Indonesia</option>
     </select>
     <input type="submit" value="Change" />
   </form>
