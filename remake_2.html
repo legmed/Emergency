@@ -22,8 +22,10 @@
                 });
                 var markerB = new google.maps.Marker({
                     position: new google.maps.LatLng(36.555641, 136.683687),   //マーカーの位置
+
                     map: map,   //表示する地図
                     title: "car vs bicycle accident point"   //ロールオーバー テキスト
+
                 });
 
                 //吹き出しを作成します
@@ -68,6 +70,25 @@
             }
         </script>
     </head>
+
+      <form method="get">
+        address or place name, etc.:
+        <input type="text" id="address" value="Tokyo Tower" />
+        <input type="button" id="doGeocode" value="Geocoding" />
+        <br/>
+
+        region:
+        <select name="language-code" style="margin-left: 20px">
+          <option value="ja-jp">Japan</option>
+          <option value="en-us">United States</option>
+          <option value="ar-iq">Irad</option>
+          <option value="es-es">Spain</option>
+          <option value="ru-ru">Russia</option>
+          <option value="in-id">Indonesia</option>
+        </select>
+        <input type="submit" value="Change" />
+      </form>
+      <div id="map_canvas" style="width:100%; height:100%"></div>
     <body onload="initialize()">
         <!-- div要素内に地図を表示 -->
         <div id="map_canvas" style="width: 700px; height: 580px;"></div>
