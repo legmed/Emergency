@@ -18,21 +18,21 @@
                 var markerA = new google.maps.Marker({
                     position: new google.maps.LatLng(36.548319, 136.685594),   //マーカーの位置
                     map: map,   //表示する地図
-                    title: "eeeee"   //ロールオーバー テキスト
+                    title: "car accident point"   //ロールオーバー テキスト
                 });
                 var markerB = new google.maps.Marker({
                     position: new google.maps.LatLng(36.555641, 136.683687),   //マーカーの位置
                     map: map,   //表示する地図
-                    title: "sunoko"   //ロールオーバー テキスト
+                    title: "car vs bicycle accident point"   //ロールオーバー テキスト
                 });
 
                 //吹き出しを作成します
                 var contentStringA =
-                "<h1>eeeee</h1>"+
-                "<p>kakikukeko</p>";
+                "<h1>car accident point</h1>"+
+                "<p>The car can't stop at intersection</p>";
                 var contentStringB =
-                "<h1>sunoko</h1>"+
-                "<p>oiiiiii</p>";
+                "<h1>Dengirous point</h1>"+
+                "<p>A man had accident by car and whack　his head</p>";
 
                 var infowindowA = new google.maps.InfoWindow({
                     content: contentStringA,
